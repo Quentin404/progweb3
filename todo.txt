@@ -1,0 +1,11 @@
+appli avec mes artistes préf
+	classification par genre (à rajouter moi)
+	mood (à rajouter moi)
+	acoustique/electronique (moi)
+	tri par popularité
+	tri par écoutes
+
+au clic détails sur les artistes
+artistes similaires 
+
+ANILIST AVEC DES ARTISTES DE MUSIQUE
