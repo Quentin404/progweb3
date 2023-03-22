@@ -20,6 +20,9 @@
             albumRow
         }
     }
+
+    import {getAlbumData} from '@/services/api/lastfmAPI.js'
+    console.log(getAlbumData());
 </script>
 
 <style scoped>
