@@ -1,23 +1,31 @@
 <template>
     <div class="albumRow">
         <div class="albumArt">
-            <img src="https://lastfm.freetls.fastly.net/i/u/174s/a217ddc5794aecd2081bda7e2e789782.jpg" alt="">
+            <img v-bind:src="cover_art">
             <div class="textTitles">
-                <span class="textArtist">artist</span>
-                <span class="textAlbum">album_name</span>
+                <span class="textArtist">{{ artist }}</span>
+                <span class="textAlbum">{{ name }}</span>
             </div>
         </div>
         <div class="albumStats">
-            <span class="textInfos" alt="nb tracks">999</span> 
-            <span class="textInfos" alt="nb plays">72120</span>
-            <span class="textInfos" alt="lenght">10:23</span>
+            <span class="textInfos">{{ nb_tracks }}</span> 
+            <span class="textInfos">{{ nb_plays }}</span>
+            <span class="textInfos">{{ length }}</span>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'albumRow'
+        name: 'albumRow',
+        props: {
+            artist: {type: String, required: true},
+            name: {type: String, required: true},
+            cover_art: {type: String, default: "https://www.bifolcomatty.co.uk/wp-content/uploads/2019/08/placeholder-square.jpg"},
+            nb_tracks: {type: String, required: true},
+            nb_plays: {type: String, required: true},
+            length: {type: String, required: true}
+        }
     }
 </script>
 
@@ -29,7 +37,7 @@
         align-items: center;
 
         background-color: #cacaca;
-        border-radius: 10px;
+        border-radius: 5px;
     }
     
     .albumArt {
@@ -45,7 +53,7 @@
         height: 100%;
         width: auto;
         margin-right: 2rem;
-        border-radius: 10px;
+        border-radius: 5px;
     }
 
     .textTitles {
