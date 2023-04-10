@@ -12,3 +12,13 @@ const getAlbumData = async function() {
 export {
     getAlbumData
 }
+
+// fonction getAlbumInfo qui récupère les infos d'un seul album
+
+/*
+mettre des arguments aux fonctions et les appeler dans les éléments vue
+
+utiliser getAlbumInfo dans getAlbumData pour récupérer plus d'infos sur les albums
+et après getAlbumData renvoie un gros tableau tout propre avec tout ce qu'il faut
+
+*/ 
