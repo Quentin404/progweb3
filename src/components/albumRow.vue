@@ -33,7 +33,7 @@
     .albumRow {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        /* j    ustify-content: space-between; */
         align-items: center;
 
         background-color: #cacaca;
@@ -46,7 +46,8 @@
         justify-content: flex-start;
         align-items: center;
         height: 3.5rem;
-        flex-grow: 1.5;
+        width: 66%;
+        /* flex-grow: 1.5; */
     }
 
     img {

@@ -1,6 +1,6 @@
 <template>
-    <div class="rowList">
-        <h2>Research</h2>
+    <div class="cardList">
+        <h2>Planned</h2>
         <div class="albumList">
             <albumRow 
                 v-for="album in albumData" 
@@ -21,7 +21,7 @@
     import {getAlbumData} from '@/services/api/lastfmAPI.js'
 
     export default {
-        name: 'rowList',
+        name: 'cardList',
         components: {
             albumRow
         },
@@ -45,8 +45,8 @@
 </script>
 
 <style scoped>
-    .rowList {
-        flex: 1;
+    .cardList {
+        flex: 3;
         max-width: 75vw;
         min-width: 33vw;
         padding: .2rem 1rem 1rem;
