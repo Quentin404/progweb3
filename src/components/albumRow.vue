@@ -51,7 +51,7 @@
     img {
         height: 100%;
         width: auto;
-        margin-right: 2rem;
+        margin-right: 1rem;
         border-radius: 5px;
     }
 
@@ -77,6 +77,6 @@
     }
 
     .textInfos {
-        font-size: 16px;
+        font-size: 14px;
     }
 </style>

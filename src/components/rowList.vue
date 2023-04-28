@@ -3,7 +3,7 @@
         <h2>Research</h2>
         <div class="albumList">
             <albumRow 
-                v-for="album in albumData" 
+                v-for="album in albums" 
                 :key="album.name"
                 :artist="album.artist"
                 :cover_art="album.image[1]['#text']"
@@ -18,27 +18,12 @@
 
 <script>
     import albumRow from "./albumRow"
-    import {getAlbumData} from '@/services/api/lastfmAPI.js'
 
     export default {
         name: 'rowList',
+        props: ['albums'],
         components: {
             albumRow
-        },
-        data() {
-            return {
-                albumData: []
-            }
-        },
-        created: async function() {
-            this.albumData = await this.retrieveAlbumData("Men I Trust", 10);
-            this.albumData = this.albumData.results.albummatches.album;
-            console.log(this.albumData);
-        },
-        methods: {
-            async retrieveAlbumData(albumName, howMany) {
-                return await getAlbumData(albumName, howMany);
-            }
         }
     }
 
@@ -53,6 +38,11 @@
 
         background-color: #eaeaea;
         border-radius: 5px;
+    }
+
+    .albumList {
+        height: 88vh;
+        overflow-y: auto;
     }
 
     .albumList > * {

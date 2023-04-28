@@ -3,7 +3,7 @@
         <h2>Planned</h2>
         <div class="albumGallery">
             <albumCard 
-                v-for="album in albumData" 
+                v-for="album in albums" 
                 :key="album.name"
                 :artist="album.artist"
                 :cover_art="album.image[2]['#text']"
@@ -18,26 +18,12 @@
 
 <script>
     import albumCard from "./albumCard"
-    import {getAlbumData} from '@/services/api/lastfmAPI.js'
 
     export default {
         name: 'cardList',
+        props: ['albums'],
         components: {
             albumCard
-        },
-        data() {
-            return {
-                albumData: []
-            }
-        },
-        created: async function() {
-            this.albumData = await this.retrieveAlbumData("Frost Children", 10);
-            this.albumData = this.albumData.results.albummatches.album;
-        },
-        methods: {
-            async retrieveAlbumData(albumName, howMany) {
-                return await getAlbumData(albumName, howMany);
-            }
         }
     }
 
@@ -57,5 +43,8 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        
+        height: 88vh;
+        overflow-y: auto;
     }
 </style>

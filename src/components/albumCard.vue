@@ -52,6 +52,8 @@
 
     .textAlbum{
         font-size: 14px;
+        max-height: 60px;
+        overflow-y: auto;
     }
 
     .textInfos {

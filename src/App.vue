@@ -1,7 +1,7 @@
 <template>
   <div class="mainContainer">
-    <rowList/>
-    <cardList/>
+    <rowList v-bind:albums="searchedAlbumData"/>
+    <cardList v-bind:albums="searchedAlbumData"/>
   </div>
 </template>
 
@@ -22,9 +22,13 @@ export default {
     }
   },
   created: async function() {
-    this.searchedAlbumData = await this.retrieveAlbumData("Four Tet", 8);
-    this.searchedAlbumData = this.searchedAlbumData.results.albummatches.album;
-    console.log(this.searchedAlbumData);
+    let tempArray = await this.retrieveAlbumData("Kero Kero Bonito", 32);
+    tempArray = tempArray.results.albummatches.album;
+    tempArray.forEach(e => {
+      if (e.name != "(null)") {
+        this.searchedAlbumData.push(e);
+      }
+    });
   },
   methods: {
     async retrieveAlbumData(albumName, howMany) {
@@ -41,6 +45,8 @@ export default {
   .mainContainer {
     display: flex;
     flex-direction: row;
+    gap: 10px;
+    height: 98vh;
   }
 
 </style>
