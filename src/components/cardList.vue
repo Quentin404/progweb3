@@ -1,8 +1,8 @@
 <template>
     <div class="cardList">
         <h2>Planned</h2>
-        <div class="albumList">
-            <albumRow 
+        <div class="albumGallery">
+            <albumCard 
                 v-for="album in albumData" 
                 :key="album.name"
                 :artist="album.artist"
@@ -17,13 +17,13 @@
 </template>
 
 <script>
-    import albumRow from "./albumRow"
+    import albumCard from "./albumCard"
     import {getAlbumData} from '@/services/api/lastfmAPI.js'
 
     export default {
         name: 'cardList',
         components: {
-            albumRow
+            albumCard
         },
         data() {
             return {
@@ -54,12 +54,13 @@
         background-color: #eaeaea;
         border-radius: 5px;
     }
-
-    .albumList > * {
+/* 
+    .albumGallery > * {
         margin-bottom: 1rem;
     }
 
-    .albumList > *:last-child {
+    .albumGallery > *:last-child {
         margin-bottom: 0px;
     }
+     */
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="albumRow">
+    <div class="albumCard">
         <div class="albumArt">
             <img v-bind:src="cover_art">
             <div class="textTitles">
@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        name: 'albumRow',
+        name: 'albumCard',
         props: {
             artist: {type: String, required: true},
             name: {type: String, required: true},
@@ -30,10 +30,15 @@
 </script>
 
 <style scoped>
-    .albumRow {
+    .albumCard {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        /* align-items: center; */
+        flex-direction: column;
+
+        width: 150px;
 
         background-color: #cacaca;
         border-radius: 5px;
