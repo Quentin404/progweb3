@@ -6,7 +6,7 @@
                 v-for="album in albumData" 
                 :key="album.name"
                 :artist="album.artist"
-                :cover_art="album.image[1]['#text']"
+                :cover_art="album.image[2]['#text']"
                 :name="album.name"
                 :nb_tracks="album.streamable"
                 :nb_plays="album.streamable"
@@ -31,9 +31,8 @@
             }
         },
         created: async function() {
-            this.albumData = await this.retrieveAlbumData("ABBA", 10);
+            this.albumData = await this.retrieveAlbumData("Frost Children", 10);
             this.albumData = this.albumData.results.albummatches.album;
-            console.log(this.albumData);
         },
         methods: {
             async retrieveAlbumData(albumName, howMany) {
@@ -54,13 +53,9 @@
         background-color: #eaeaea;
         border-radius: 5px;
     }
-/* 
-    .albumGallery > * {
-        margin-bottom: 1rem;
+    .albumGallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
     }
-
-    .albumGallery > *:last-child {
-        margin-bottom: 0px;
-    }
-     */
 </style>

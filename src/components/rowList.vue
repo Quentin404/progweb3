@@ -31,7 +31,7 @@
             }
         },
         created: async function() {
-            this.albumData = await this.retrieveAlbumData("ABBA", 10);
+            this.albumData = await this.retrieveAlbumData("Men I Trust", 10);
             this.albumData = this.albumData.results.albummatches.album;
             console.log(this.albumData);
         },

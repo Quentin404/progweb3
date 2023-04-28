@@ -3,8 +3,8 @@
         <div class="albumArt">
             <img v-bind:src="cover_art">
             <div class="textTitles">
-                <span class="textArtist">{{ artist }}</span>
                 <span class="textAlbum">{{ name }}</span>
+                <span class="textArtist">{{ artist }}</span>
             </div>
         </div>
         <div class="albumStats">
@@ -62,11 +62,11 @@
     }
 
     .textArtist {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .textAlbum{
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .albumStats  {
