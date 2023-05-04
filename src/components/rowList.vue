@@ -1,6 +1,8 @@
 <template>
     <div class="rowList">
-        <h2>Research</h2>
+        <h2>Explorer</h2>
+        <input v-model="query" @keyup.enter="search" type="text" placeholder="Album or artist...">
+        <p v-if="searchQuery">Looking for {{ searchQuery }}...</p>
         <div class="albumList">
             <albumRow 
                 v-for="album in albums" 
@@ -22,8 +24,22 @@
     export default {
         name: 'rowList',
         props: ['albums'],
+        emits: ['search'],
         components: {
             albumRow
+        },
+        data() {
+            return {
+                query: ''
+            }
+        },
+        methods: {
+            search() {
+                console.log("[debug] search in rowList called : " + this.query)
+                this.$emit('search', this.query, 10);
+                this.searchQuery = this.query;
+                this.query = "";
+            }
         }
     }
 

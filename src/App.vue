@@ -1,6 +1,6 @@
 <template>
   <div class="mainContainer">
-    <rowList v-bind:albums="searchedAlbumData"/>
+    <rowList v-bind:albums="searchedAlbumData" @search="retrievedAndTreatAlbumData"/>
     <cardList v-bind:albums="searchedAlbumData"/>
   </div>
 </template>
@@ -18,21 +18,33 @@ export default {
   },
   data() {
     return {
-      searchedAlbumData: []
+      searchedAlbumData: [],
+      retrievedQuery: " "
     }
   },
   created: async function() {
-    let tempArray = await this.retrieveAlbumData("Kero Kero Bonito", 32);
-    tempArray = tempArray.results.albummatches.album;
-    tempArray.forEach(e => {
-      if (e.name != "(null)") {
-        this.searchedAlbumData.push(e);
-      }
-    });
+    // let tempArray = await this.retrieveAlbumData("Kero Kero Bonito", 32);
+    // tempArray = tempArray.results.albummatches.album;
+    // tempArray.forEach(e => {
+    //   if (e.name != "(null)") {
+    //     this.searchedAlbumData.push(e);
+    //   }
+    // });
+    // // TODO for later : store in local datas last search to show up when the page is loaded
   },
   methods: {
     async retrieveAlbumData(albumName, howMany) {
       return await getAlbumData(albumName, howMany);
+    },
+    async retrievedAndTreatAlbumData(albumName, HowMany) {
+      this.searchedAlbumData = [];
+      let tempArray = await this.retrieveAlbumData(albumName, HowMany);
+      tempArray = tempArray.results.albummatches.album;
+      tempArray.forEach(e => {
+        if (e.name != "(null)") {
+          this.searchedAlbumData.push(e);
+        }
+      });
     }
   }
 }
