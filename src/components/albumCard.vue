@@ -4,7 +4,7 @@
         <div class="textTitles">
             <span class="textAlbum">{{ name }}</span>
             <span class="textArtist">{{ artist }}</span>
-            <span class="textInfos">{{ length }}</span>
+            <span class="textInfos">{{ duration }}</span>
         </div>
     </div>
 </template>
@@ -13,10 +13,10 @@
     export default {
         name: 'albumCard',
         props: {
-            artist: {type: String, required: true},
-            name: {type: String, required: true},
+            artist: {type: String, required: true, default: "[no artist name]"},
+            name: {type: String, required: true, default: "[no album name]"},
             cover_art: {type: String, default: "https://www.bifolcomatty.co.uk/wp-content/uploads/2019/08/placeholder-square.jpg"},
-            length: {type: String, required: true}
+            duration: {type: String, default: "0:00"}
         }
     }
 </script>
@@ -28,6 +28,7 @@
         flex-direction: column;
 
         max-width: 150px;
+        max-height: 250px;
 
         background-color: #cacaca;
         border-radius: 5px;
@@ -57,6 +58,6 @@
     }
 
     .textInfos {
-        font-size: 10px;
+        font-size: 12px;
     }
 </style>

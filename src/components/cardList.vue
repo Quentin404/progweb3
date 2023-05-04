@@ -8,9 +8,7 @@
                 :artist="album.artist"
                 :cover_art="album.image[2]['#text']"
                 :name="album.name"
-                :nb_tracks="album.streamable"
-                :nb_plays="album.streamable"
-                :length="album.streamable"
+                :duration="album.duration"
             />
         </div>
     </div>

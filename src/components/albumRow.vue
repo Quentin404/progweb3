@@ -1,5 +1,5 @@
 <template>
-    <div class="albumRow">
+    <div v-if="duration != '0:00'" class="albumRow">
         <div class="albumArt">
             <img v-bind:src="cover_art">
             <div class="textTitles">
@@ -10,7 +10,7 @@
         <div class="albumStats">
             <span class="textInfos">{{ nb_tracks }}</span> 
             <span class="textInfos">{{ nb_plays }}</span>
-            <span class="textInfos">{{ length }}</span>
+            <span class="textInfos">{{ duration }}</span>
         </div>
     </div>
 </template>
@@ -19,12 +19,12 @@
     export default {
         name: 'albumRow',
         props: {
-            artist: {type: String, required: true},
-            name: {type: String, required: true},
+            artist: {type: String, required: true, default: "[no artist name]"},
+            name: {type: String, required: true, default: "[no album name]"},
             cover_art: {type: String, default: "https://www.bifolcomatty.co.uk/wp-content/uploads/2019/08/placeholder-square.jpg"},
-            nb_tracks: {type: String, required: true},
-            nb_plays: {type: String, required: true},
-            length: {type: String, required: true}
+            nb_tracks: {type: Number, default: 0},
+            nb_plays: {type: Number, default: 0},
+            duration: {type: String, default: "0:00"}
         }
     }
 </script>
@@ -77,6 +77,6 @@
     }
 
     .textInfos {
-        font-size: 14px;
+        font-size: 12px;
     }
 </style>

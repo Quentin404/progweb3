@@ -2,6 +2,12 @@
     <div class="rowList">
         <h2>Explorer</h2>
         <input v-model="query" @keyup.enter="search" type="text" placeholder="Album or artist...">
+        <select v-model="howMany" @change="updateHowMany">
+            <option value=5>5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
         <p v-if="searchQuery">Looking for {{ searchQuery }}...</p>
         <div class="albumList">
             <albumRow 
@@ -10,9 +16,9 @@
                 :artist="album.artist"
                 :cover_art="album.image[1]['#text']"
                 :name="album.name"
-                :nb_tracks="album.streamable"
-                :nb_plays="album.streamable"
-                :length="album.streamable"
+                :nb_tracks="album.nb_tracks"
+                :nb_plays="Number(album.playcount)"
+                :duration="album.duration"
             />
         </div>
     </div>
@@ -30,15 +36,20 @@
         },
         data() {
             return {
-                query: ''
+                query: '',
+                searchQuery: '',
+                howMany: 10,
             }
         },
         methods: {
             search() {
-                console.log("[debug] search in rowList called : " + this.query)
-                this.$emit('search', this.query, 10);
+                console.log("[debug] search in rowList called : " + this.query);
+                this.$emit('search', this.query, this.howMany);
                 this.searchQuery = this.query;
                 this.query = "";
+            },
+            updateHowMany() {
+                console.log("[debug] howMany select has been updated");
             }
         }
     }
