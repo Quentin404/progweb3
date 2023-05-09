@@ -12,18 +12,14 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
 
         for(let i = 0; i < searchedAlbums.length; i++) {
             let currentAlbum = searchedAlbums[i];
-            // console.log(searchedAlbums[i]);
             let currentAlbumInfo = await getAlbumInfoFromAPI(currentAlbum.artist, currentAlbum.name);
-            // console.log("Album n°" + i + " info");
             if ('tracks' in currentAlbumInfo.album) {
                 console.log(currentAlbumInfo.album.tracks.track);
                 if (Array.isArray(currentAlbumInfo.album.tracks.track)) {
-                    // console.log("It's an array!");
                     searchedAlbums[i].nb_tracks = currentAlbumInfo.album.tracks.track.length;
                     searchedAlbums[i].duration = getAlbumDuration(currentAlbumInfo.album.tracks.track);
                 }
                 else {
-                    // console.log("It's an object!");
                     searchedAlbums[i].nb_tracks = 1;
                     searchedAlbums[i].duration = convertToBeautifulTime(currentAlbumInfo.album.tracks.track.duration);
                 }
@@ -59,13 +55,3 @@ export {
     getAlbumsFormSearchFromAPI,
     getAlbumInfoFromAPI
 }
-
-// fonction getAlbumInfo qui récupère les infos d'un seul album
-
-/*
-mettre des arguments aux fonctions et les appeler dans les éléments vue
-
-utiliser getAlbumInfo dans getAlbumData pour récupérer plus d'infos sur les albums
-et après getAlbumData renvoie un gros tableau tout propre avec tout ce qu'il faut
-
-*/ 
