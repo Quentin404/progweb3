@@ -1,5 +1,6 @@
 <template>
-    <div v-if="duration != '0:00'" class="albumRow">
+    <!-- <div v-if="duration != '0:00'" class="albumRow"> -->
+    <div class="albumRow">
         <div class="albumArt">
             <img v-bind:src="cover_art">
             <div class="textTitles">
