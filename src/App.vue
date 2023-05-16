@@ -1,8 +1,8 @@
 <template>
   <div class="mainContainer">
     <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData"/>
-    <cardList v-bind:albums="searchedAlbumData"/>
-    <listList v-bind:lists="lists"/>
+    <cardList v-bind:list="currentList"/>
+    <listList v-bind:lists="lists" @listSelected="listSelectedHandler"/>
   </div>
 </template>
 
@@ -29,11 +29,15 @@ export default {
           albums: [
             {
               name: "Frailty",
-              artist: "Jane Remover"
+              artist: "Jane Remover",
+              image: "x",
+              duration: "999:99"
             },
             {
               name: "Starboy",
-              artist: "The Weeknd"
+              artist: "The Weeknd",
+              image: "x",
+              duration: "999:99"
             }
           ]
         },
@@ -41,24 +45,50 @@ export default {
           name: "yo2",
           albums: [
             {
-              name: "Frailty",
-              artist: "Jane Remover"
+              name: "4x4=12",
+              artist: "deadmau5",
+              image: "x",
+              duration: "999:99"
             },
             {
-              name: "Starboy",
-              artist: "The Weeknd"
+              name: "Strobe",
+              artist: "deadmau5",
+              image: "x",
+              duration: "999:99"
             }
           ]
         }
-      ]
+      ],
+      currentList : {
+          name: "yo2",
+          albums: [
+            {
+              name: "4x4=12",
+              artist: "deadmau5",
+              image: "x",
+              duration: "999:99"
+            },
+            {
+              name: "Strobe",
+              artist: "deadmau5",
+              image: "x",
+              duration: "999:99"
+            }
+          ]
+        }
     }
   },
   created: async function() {
+    console.log(this.currentList);
     this.retrieveAndTreatAlbumData("four tet", 10);
   },
   methods: {
       async retrieveAndTreatAlbumData(albumName, howMany) {
         this.searchedAlbumData = await getAlbumsFormSearchFromAPI(albumName, howMany);
+      },
+      listSelectedHandler(listname) {
+        console.log(this.lists.find(list => list.name === listname));
+        this.currentList = this.lists.find(list => list.name === listname);
       }
   }
 }

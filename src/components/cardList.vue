@@ -1,12 +1,12 @@
 <template>
     <div class="cardList">
-        <h2>Planned</h2>
+        <h2>{{ list.name }}</h2>
         <div class="albumGallery">
             <albumCard 
-                v-for="album in albums" 
+                v-for="album in list.albums" 
                 :key="album.name"
                 :artist="album.artist"
-                :cover_art="album.image[2]['#text']"
+                :cover_art="album.image"
                 :name="album.name"
                 :duration="album.duration"
             />
@@ -19,7 +19,7 @@
 
     export default {
         name: 'cardList',
-        props: ['albums'],
+        props: ['list'],
         components: {
             albumCard
         }

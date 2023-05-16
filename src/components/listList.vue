@@ -13,7 +13,7 @@
             <p 
                 v-for="list in lists" 
                 :key="list.name"
-                
+                @click="listSelected(list)"
             >
             {{ list.name }}
             </p>
@@ -25,7 +25,7 @@
     export default {
         name: 'listList',
         props: ['lists'],
-        // emits: ['search'],
+        emits: ['listSelected'],
         // components: {
         //     albumRow
         // },
@@ -36,17 +36,12 @@
         //         howMany: 10,
         //     }
         // },
-        // methods: {
-        //     search() {
-        //         console.log("[debug] search in rowList called : " + this.query);
-        //         this.$emit('search', this.query, this.howMany);
-        //         this.searchQuery = this.query;
-        //         this.query = "";
-        //     },
-        //     updateHowMany() {
-        //         console.log("[debug] howMany select has been updated");
-        //     }
-        // }
+        methods: {
+            listSelected(list) {
+                console.log("[debug] listSelected in listList called : " + list.name);
+                this.$emit('listSelected', list.name);
+            }
+        }
     }
 
 </script>
@@ -60,5 +55,14 @@
 
         background-color: #eaeaea;
         border-radius: 5px;
+    }
+    p {
+        border-radius: 5px;
+        background-color: #cacaca;
+        padding: 5px 10px;
+        margin-right: 15%;
+    }
+    p:hover {
+        cursor: pointer;
     }
 </style>
