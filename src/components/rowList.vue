@@ -1,20 +1,20 @@
 <template>
     <div class="rowList">
         <h2>Explorer</h2>
-        <input v-model="query" @keyup.enter="search" type="text" placeholder="Album or artist...">
         <select v-model="howMany" @change="updateHowMany">
             <option value=5>5</option>
             <option value="10">10</option>
             <option value="25">25</option>
             <option value="50">50</option>
         </select>
-        <p v-if="searchQuery">Looking for {{ searchQuery }}...</p>
+        <input v-model="query" @keyup.enter="search" type="text" placeholder="Album or artist...">
+        <p v-if="isLoading">🔄 Looking for {{ searchQuery }}...</p>
         <div class="albumList">
             <albumRow 
                 v-for="album in albums" 
                 :key="album.name"
                 :artist="album.artist"
-                :cover_art="album.image[1]['#text']"
+                :cover_art="album.image"
                 :name="album.name"
                 :nb_tracks="album.nb_tracks"
                 :nb_plays="Number(album.playcount)"
@@ -29,7 +29,13 @@
 
     export default {
         name: 'rowList',
-        props: ['albums'],
+        props: {
+            ['albums']:{},
+            isLoading: {
+                type: Boolean,
+                required: true
+            }
+        },
         emits: ['search'],
         components: {
             albumRow
@@ -78,5 +84,10 @@
 
     .albumList > *:last-child {
         margin-bottom: 0px;
+    }
+
+    input {
+        margin-bottom: 1rem;
+        width: 80%;
     }
 </style>

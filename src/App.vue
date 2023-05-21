@@ -1,6 +1,6 @@
 <template>
   <div class="mainContainer">
-    <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData"/>
+    <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" :isLoading="isSearchLoading" />
     <cardList v-bind:list="currentList"/>
     <listList v-bind:lists="lists" @listSelected="listSelectedHandler"/>
   </div>
@@ -23,6 +23,7 @@ export default {
     return {
       searchedAlbumData: [],
       retrievedQuery: " ",
+      isSearchLoading: false,
       lists : [
         {
           name: "yo",
@@ -84,7 +85,9 @@ export default {
   },
   methods: {
       async retrieveAndTreatAlbumData(albumName, howMany) {
+        this.isSearchLoading = true;
         this.searchedAlbumData = await getAlbumsFormSearchFromAPI(albumName, howMany);
+        this.isSearchLoading = false;
       },
       listSelectedHandler(listname) {
         console.log(this.lists.find(list => list.name === listname));
