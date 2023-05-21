@@ -13,12 +13,7 @@
             <albumRow 
                 v-for="album in albums" 
                 :key="album.name"
-                :artist="album.artist"
-                :cover_art="album.image"
-                :name="album.name"
-                :nb_tracks="album.nb_tracks"
-                :nb_plays="Number(album.playcount)"
-                :duration="album.duration"
+                :album="album"
             />
         </div>
     </div>

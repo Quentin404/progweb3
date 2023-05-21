@@ -50,7 +50,6 @@
     .listList {
         flex: 1;
         max-width: 33vw;
-        min-width: 15vw;
         padding: .2rem 1rem 1rem;
 
         background-color: #eaeaea;
@@ -60,7 +59,6 @@
         border-radius: 5px;
         background-color: #cacaca;
         padding: 5px 10px;
-        margin-right: 15%;
     }
     p:hover {
         cursor: pointer;

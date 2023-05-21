@@ -2,16 +2,17 @@
     <!-- <div v-if="duration != '0:00'" class="albumRow"> -->
     <div class="albumRow">
         <div class="albumArt">
-            <img v-bind:src="cover_art">
+            <img v-bind:src="album.image">
             <div class="textTitles">
-                <span class="textAlbum">{{ name }}</span>
-                <span class="textArtist">{{ artist }}</span>
+                <span class="textAlbum">{{ album.name }}</span>
+                <span class="textArtist">{{ album.artist }}</span>
             </div>
         </div>
         <div class="albumStats">
-            <span class="textInfos">{{ nb_tracks }}</span> 
-            <span class="textInfos">{{ nb_plays }}</span>
-            <span class="textInfos">{{ duration }}</span>
+            <span class="textInfos">{{ album.nb_tracks }}</span> 
+            <span class="textInfos">{{ album.playcount }}</span>
+            <span class="textInfos">{{ album.duration }}</span>
+            <svg @click="addButtonEvent(album)" class="addIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
         </div>
     </div>
 </template>
@@ -20,12 +21,12 @@
     export default {
         name: 'albumRow',
         props: {
-            artist: {type: String, required: true, default: "[no artist name]"},
-            name: {type: String, required: true, default: "[no album name]"},
-            cover_art: {type: String, default: "https://www.bifolcomatty.co.uk/wp-content/uploads/2019/08/placeholder-square.jpg"},
-            nb_tracks: {type: Number, default: 0},
-            nb_plays: {type: Number, default: 0},
-            duration: {type: String, default: "0:00"}
+            album: {type: Object, required: true}
+        },
+        methods: {
+            addButtonEvent(album) {
+                console.log(album);
+            }
         }
     }
 </script>
@@ -79,5 +80,9 @@
 
     .textInfos {
         font-size: 12px;
+    }
+
+    .addIcon:hover {
+        cursor: pointer;
     }
 </style>
