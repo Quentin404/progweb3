@@ -14,22 +14,24 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
             let currentAlbum = searchedAlbums[i];
             searchedAlbums[i].image = currentAlbum.image[1]['#text'];
             let currentAlbumInfo = await getAlbumInfoFromAPI(currentAlbum.artist, currentAlbum.name);
-            if ('tracks' in currentAlbumInfo.album) {
-                console.log(currentAlbumInfo.album.tracks.track);
-                if (Array.isArray(currentAlbumInfo.album.tracks.track)) {
-                    searchedAlbums[i].nb_tracks = currentAlbumInfo.album.tracks.track.length;
-                    searchedAlbums[i].duration = getAlbumDuration(currentAlbumInfo.album.tracks.track);
+            if (currentAlbumInfo) {
+                if ('tracks' in currentAlbumInfo?.album) {
+                    console.log(currentAlbumInfo.album.tracks.track);
+                    if (Array.isArray(currentAlbumInfo.album.tracks.track)) {
+                        searchedAlbums[i].nb_tracks = currentAlbumInfo.album.tracks.track.length;
+                        searchedAlbums[i].duration = getAlbumDuration(currentAlbumInfo.album.tracks.track);
+                    }
+                    else {
+                        searchedAlbums[i].nb_tracks = 1;
+                        searchedAlbums[i].duration = convertToBeautifulTime(currentAlbumInfo.album.tracks.track.duration);
+                    }
                 }
                 else {
-                    searchedAlbums[i].nb_tracks = 1;
-                    searchedAlbums[i].duration = convertToBeautifulTime(currentAlbumInfo.album.tracks.track.duration);
+                    searchedAlbums[i].duration = "n/a"
+                    searchedAlbums[i].nb_tracks = 1
                 }
+                searchedAlbums[i].playcount = currentAlbumInfo.album.playcount;
             }
-            else {
-                searchedAlbums[i].duration = "n/a"
-                searchedAlbums[i].nb_tracks = 1
-            }
-            searchedAlbums[i].playcount = currentAlbumInfo.album.playcount;
         }
 
         return searchedAlbums;
@@ -49,6 +51,7 @@ const getAlbumInfoFromAPI = async function(artist, albumName) {
     else
     {
         new Error(response.statusText)
+        return 0;
     }
 }
 

@@ -4,11 +4,9 @@
         <div class="albumGallery">
             <albumCard 
                 v-for="album in list.albums" 
-                :key="album.name"
-                :artist="album.artist"
-                :cover_art="album.image"
-                :name="album.name"
-                :duration="album.duration"
+                :key="album"
+                :album="album"
+                @removeButtonEvent="removeButtonEvent"
             />
         </div>
     </div>
@@ -20,8 +18,14 @@
     export default {
         name: 'cardList',
         props: ['list'],
+        emits: ['removeButtonEvent'],
         components: {
             albumCard
+        },
+        methods: {
+            removeButtonEvent(album) {
+                this.$emit('removeButtonEvent', album);
+            }
         }
     }
 
@@ -30,6 +34,8 @@
 <style scoped>
     .cardList {
         flex: 3;
+        display: flex;
+        flex-direction: column;
         max-width: 75vw;
         min-width: 33vw;
         padding: .2rem 1rem 1rem;
@@ -42,7 +48,6 @@
         flex-wrap: wrap;
         gap: 10px;
         
-        height: 88vh;
         overflow-y: auto;
     }
 </style>

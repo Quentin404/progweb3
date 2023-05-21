@@ -1,7 +1,7 @@
 <template>
   <div class="mainContainer">
-    <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" :isLoading="isSearchLoading" />
-    <cardList v-bind:list="currentList"/>
+    <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addButtonEvent" :isLoading="isSearchLoading"/>
+    <cardList v-bind:list="currentList" @removeButtonEvent="removeButtonEvent"/>
     <listList v-bind:lists="lists" @listSelected="listSelectedHandler"/>
   </div>
 </template>
@@ -32,13 +32,15 @@ export default {
               name: "Frailty",
               artist: "Jane Remover",
               image: "x",
-              duration: "999:99"
+              duration: "999:99",
+              index: 0
             },
             {
               name: "Starboy",
               artist: "The Weeknd",
               image: "x",
-              duration: "999:99"
+              duration: "999:99",
+              index: 1
             }
           ]
         },
@@ -49,13 +51,15 @@ export default {
               name: "4x4=12",
               artist: "deadmau5",
               image: "x",
-              duration: "999:99"
+              duration: "999:99",
+              index: 0
             },
             {
               name: "Strobe",
               artist: "deadmau5",
               image: "x",
-              duration: "999:99"
+              duration: "999:99",
+              index: 1
             }
           ]
         }
@@ -90,8 +94,25 @@ export default {
         this.isSearchLoading = false;
       },
       listSelectedHandler(listname) {
-        console.log(this.lists.find(list => list.name === listname));
+        // console.log(this.lists.find(list => list.name === listname));
+        this.currentList = {};
         this.currentList = this.lists.find(list => list.name === listname);
+      },
+      addButtonEvent(album) {
+        console.log("album to add, that has been transported to App.vue :")
+        console.log(album);
+        // checks if album already in list
+        if (this.currentList.albums.find(albumInList => albumInList === album)) {
+          console.log("Album already in list");
+        }
+        else {
+          this.currentList.albums.push(album);
+        }
+      },
+      removeButtonEvent(album) {
+        console.log("album to REMOVE, that has been transported to App.vue :")
+        console.log(album);
+        this.currentList.albums = this.currentList.albums.filter(albumInList => albumInList !== album);
       }
   }
 }

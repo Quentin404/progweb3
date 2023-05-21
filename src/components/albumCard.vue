@@ -1,10 +1,11 @@
 <template>
     <div class="albumCard">
-        <img v-bind:src="cover_art">
+        <img v-bind:src="album.image">
         <div class="textTitles">
-            <span class="textAlbum">{{ name }}</span>
-            <span class="textArtist">{{ artist }}</span>
-            <span class="textInfos">{{ duration }}</span>
+            <span class="textAlbum">{{ album.name }}</span>
+            <span class="textArtist">{{ album.artist }}</span>
+            <span class="textInfos">{{ album.duration }}</span>
+            <svg @click="removeButtonEvent(album)" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
         </div>
     </div>
 </template>
@@ -13,10 +14,13 @@
     export default {
         name: 'albumCard',
         props: {
-            artist: {type: String, required: true, default: "[no artist name]"},
-            name: {type: String, required: true, default: "[no album name]"},
-            cover_art: {type: String, default: "https://www.bifolcomatty.co.uk/wp-content/uploads/2019/08/placeholder-square.jpg"},
-            duration: {type: String, default: "0:00"}
+            album: {type: Object, required: true}
+        },
+        emits: ['removeButtonEvent'],
+        methods: {
+            removeButtonEvent(album) {
+                this.$emit('removeButtonEvent', album);
+            }
         }
     }
 </script>
@@ -28,7 +32,6 @@
         flex-direction: column;
 
         max-width: 150px;
-        max-height: 250px;
 
         background-color: #cacaca;
         border-radius: 5px;
@@ -59,5 +62,9 @@
 
     .textInfos {
         font-size: 12px;
+    }
+    
+    .removeButton:hover {
+        cursor: pointer;
     }
 </style>

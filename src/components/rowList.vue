@@ -12,8 +12,9 @@
         <div class="albumList">
             <albumRow 
                 v-for="album in albums" 
-                :key="album.name"
+                :key="album"
                 :album="album"
+                @addButtonEvent="addButtonEvent"
             />
         </div>
     </div>
@@ -31,7 +32,7 @@
                 required: true
             }
         },
-        emits: ['search'],
+        emits: ['search', 'addButtonEvent'],
         components: {
             albumRow
         },
@@ -51,6 +52,9 @@
             },
             updateHowMany() {
                 console.log("[debug] howMany select has been updated");
+            },
+            addButtonEvent(album) {
+                this.$emit('addButtonEvent', album);
             }
         }
     }

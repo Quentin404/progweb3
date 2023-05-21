@@ -23,9 +23,11 @@
         props: {
             album: {type: Object, required: true}
         },
+        emits: ['addButtonEvent'],
         methods: {
             addButtonEvent(album) {
-                console.log(album);
+                // console.log(album);
+                this.$emit('addButtonEvent', album);
             }
         }
     }
