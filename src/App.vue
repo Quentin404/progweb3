@@ -2,7 +2,7 @@
   <div class="mainContainer">
     <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addButtonEvent" :isLoading="isSearchLoading"/>
     <cardList v-bind:list="currentList" @removeButtonEvent="removeButtonEvent"/>
-    <listList v-bind:lists="lists" @listSelected="listSelectedHandler"/>
+    <listList v-bind:lists="lists" @listSelected="listSelectedHandler" @deleteList="deleteList"/>
   </div>
 </template>
 
@@ -31,14 +31,14 @@ export default {
             {
               name: "Frailty",
               artist: "Jane Remover",
-              image: "x",
+              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
               duration: "999:99",
               index: 0
             },
             {
               name: "Starboy",
               artist: "The Weeknd",
-              image: "x",
+              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
               duration: "999:99",
               index: 1
             }
@@ -50,42 +50,46 @@ export default {
             {
               name: "4x4=12",
               artist: "deadmau5",
-              image: "x",
+              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
               duration: "999:99",
               index: 0
             },
             {
               name: "Strobe",
               artist: "deadmau5",
-              image: "x",
+              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
+              duration: "999:99",
+              index: 1
+            }
+          ]
+        },
+        {
+          name: "yo3",
+          albums: [
+            {
+              name: "Pause",
+              artist: "Four Tet",
+              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
+              duration: "999:99",
+              index: 0
+            },
+            {
+              name: "Pink",
+              artist: "Four Tet",
+              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
               duration: "999:99",
               index: 1
             }
           ]
         }
       ],
-      currentList : {
-          name: "yo2",
-          albums: [
-            {
-              name: "4x4=12",
-              artist: "deadmau5",
-              image: "x",
-              duration: "999:99"
-            },
-            {
-              name: "Strobe",
-              artist: "deadmau5",
-              image: "x",
-              duration: "999:99"
-            }
-          ]
-        }
+      currentList : {}
     }
   },
   created: async function() {
     console.log(this.currentList);
     this.retrieveAndTreatAlbumData("four tet", 10);
+    this.currentList = this.lists[0];
   },
   methods: {
       async retrieveAndTreatAlbumData(albumName, howMany) {
@@ -93,10 +97,10 @@ export default {
         this.searchedAlbumData = await getAlbumsFormSearchFromAPI(albumName, howMany);
         this.isSearchLoading = false;
       },
-      listSelectedHandler(listname) {
+      listSelectedHandler(list) {
         // console.log(this.lists.find(list => list.name === listname));
         this.currentList = {};
-        this.currentList = this.lists.find(list => list.name === listname);
+        this.currentList = list;
       },
       addButtonEvent(album) {
         console.log("album to add, that has been transported to App.vue :")
@@ -113,6 +117,17 @@ export default {
         console.log("album to REMOVE, that has been transported to App.vue :")
         console.log(album);
         this.currentList.albums = this.currentList.albums.filter(albumInList => albumInList !== album);
+      },
+      deleteList(listToDelete) {
+        console.log("list to REMOVE, that has been transported to App.vue :")
+        console.log(listToDelete);
+        const userConfirmation = window.confirm("Êtes-vous sûr de vouloir supprimer la liste " + listToDelete.name + " ?");
+        if (userConfirmation) {
+          this.lists = this.lists.filter(listInLists => listInLists !== listToDelete);
+          if (this.currentList == listToDelete) {
+            this.currentList = this.lists[0];
+          }
+        }
       }
   }
 }

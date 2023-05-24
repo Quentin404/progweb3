@@ -1,7 +1,8 @@
 <template>
     <div class="cardList">
-        <h2>{{ list.name }}</h2>
-        <div class="albumGallery">
+        <h2 v-if="list">{{ list.name }}</h2>
+        <h2 v-if="!list"> Vous n'avez pas de liste !</h2>
+        <div v-if="list" class="albumGallery">
             <albumCard 
                 v-for="album in list.albums" 
                 :key="album"

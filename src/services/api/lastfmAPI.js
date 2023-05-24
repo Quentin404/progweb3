@@ -12,7 +12,7 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
 
         for(let i = 0; i < searchedAlbums.length; i++) {
             let currentAlbum = searchedAlbums[i];
-            searchedAlbums[i].image = currentAlbum.image[1]['#text'];
+            searchedAlbums[i].image = currentAlbum.image[2]['#text'];
             let currentAlbumInfo = await getAlbumInfoFromAPI(currentAlbum.artist, currentAlbum.name);
             if (currentAlbumInfo) {
                 if ('tracks' in currentAlbumInfo?.album) {

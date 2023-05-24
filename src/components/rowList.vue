@@ -1,6 +1,6 @@
 <template>
     <div class="rowList">
-        <h2>Explorer</h2>
+        <h2>Recherche</h2>
         <select v-model="howMany" @change="updateHowMany">
             <option value=5>5</option>
             <option value="10">10</option>
