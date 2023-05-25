@@ -1,5 +1,5 @@
-import { getAlbumDuration } from "../albumFunctions";
-import { convertToBeautifulTime } from "../albumFunctions";
+import { getAlbumDuration } from "../utils";
+import { convertToBeautifulTime } from "../utils";
 
 const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
     const response = await fetch("https://ws.audioscrobbler.com/2.0/?method=album.search&album=" + albumName + "&api_key=762524dd4376d64eba94f5ccfcbe1223&format=json&limit=" + howMany)
@@ -7,8 +7,6 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
     {
         let tab = await response.json();
         let searchedAlbums = tab.results.albummatches.album.filter(e => e.name !== "(null)");
-        let testAlbum = searchedAlbums[3];
-        console.log(testAlbum);
 
         for(let i = 0; i < searchedAlbums.length; i++) {
             let currentAlbum = searchedAlbums[i];

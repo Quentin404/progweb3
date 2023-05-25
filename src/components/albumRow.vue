@@ -4,7 +4,7 @@
         <div class="albumArt">
             <img v-bind:src="album.image">
             <div class="textTitles">
-                <span class="textAlbum">{{ album.name }}</span>
+                <span class="textAlbum">{{ truncAlbumName(album.name, 50) }}</span>
                 <span class="textArtist">{{ album.artist }}</span>
             </div>
         </div>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+    import { truncIfTooBig } from "../services/utils"
+
     export default {
         name: 'albumRow',
         props: {
@@ -28,6 +30,9 @@
             addButtonEvent(album) {
                 // console.log(album);
                 this.$emit('addButtonEvent', album);
+            },
+            truncAlbumName(albumName, limit) {
+                return truncIfTooBig(albumName, limit);
             }
         }
     }

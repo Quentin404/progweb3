@@ -16,6 +16,7 @@
                 :album="album"
                 @addButtonEvent="addButtonEvent"
             />
+            <p v-if="!albums[0]">Rien de rien... 😔</p>
         </div>
     </div>
 </template>

@@ -12,7 +12,16 @@ let convertToBeautifulTime = function(duration) {
     return minutes + ":" + seconds.toString().padStart(2, '0');
 }
 
+let truncIfTooBig = function(name, limit) {
+    if (name.length <= limit) {
+        return name;
+    } else {
+        return name.slice(0, limit) + '…';
+    }
+}
+
 export {
     getAlbumDuration,
-    convertToBeautifulTime
+    convertToBeautifulTime,
+    truncIfTooBig
 }

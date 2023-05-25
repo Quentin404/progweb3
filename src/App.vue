@@ -2,7 +2,7 @@
   <div class="mainContainer">
     <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addButtonEvent" :isLoading="isSearchLoading"/>
     <cardList v-bind:list="currentList" @removeButtonEvent="removeButtonEvent"/>
-    <listList v-bind:lists="lists" @listSelected="listSelectedHandler" @deleteList="deleteList"/>
+    <listList v-bind:lists="lists" @listSelected="listSelectedHandler" @deleteList="deleteList" @addNewList="addNewList"/>
   </div>
 </template>
 
@@ -128,6 +128,9 @@ export default {
             this.currentList = this.lists[0];
           }
         }
+      },
+      addNewList(newList) {
+        this.lists.push(newList);
       }
   }
 }
