@@ -2,8 +2,8 @@
     <div class="albumCard">
         <img v-bind:src="album.image">
         <div class="textTitles">
-            <span class="textAlbum">{{ album.name }}</span>
-            <span class="textArtist">{{ album.artist }}</span>
+            <span class="textAlbum">{{ trunc(album.name, 42) }}</span>
+            <span class="textArtist">{{ trunc(album.artist, 42) }}</span>
             <span class="textInfos">{{ album.duration }}</span>
             <svg @click="removeButtonEvent(album)" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
         </div>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+    import { truncIfTooBig } from "../services/utils"
+    
     export default {
         name: 'albumCard',
         props: {
@@ -20,6 +22,9 @@
         methods: {
             removeButtonEvent(album) {
                 this.$emit('removeButtonEvent', album);
+            },
+            trunc(albumName, limit) {
+                return truncIfTooBig(albumName, limit);
             }
         }
     }
@@ -57,7 +62,7 @@
     .textAlbum{
         font-size: 14px;
         max-height: 60px;
-        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .textInfos {

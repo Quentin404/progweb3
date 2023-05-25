@@ -1,14 +1,17 @@
 <template>
-    <div class="rowList">
+    <div class="searchModule">
         <h2>Recherche</h2>
-        <select v-model="howMany" @change="updateHowMany">
-            <option value=5>5</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-        </select>
-        <input v-model="query" @keyup.enter="search" type="text" placeholder="Album or artist...">
-        <p v-if="isLoading">🔄 Looking for {{ searchQuery }}...</p>
+        <div class="inputs">
+            <select v-model="howMany">
+                <option value=5>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+            <input v-model="query" @keyup.enter="search" type="text" placeholder="Album ou artiste...">
+            <button @click="search" >Rechercher</button>
+        </div>
+        <p v-if="isLoading && searchQuery">🔄 Recherche de "{{ trunc(searchQuery, 42) }}"</p>
+        <p v-if="!isLoading && searchQuery">🔍 Résultats pour "{{ trunc(searchQuery, 42) }}"</p>
         <div class="albumList">
             <albumRow 
                 v-for="album in albums" 
@@ -16,16 +19,17 @@
                 :album="album"
                 @addButtonEvent="addButtonEvent"
             />
-            <p v-if="!albums[0]">Rien de rien... 😔</p>
+            <p v-if="!albums[0] && searchQuery && !isLoading">😔 Rien de rien...</p>
         </div>
     </div>
 </template>
 
 <script>
     import albumRow from "./albumRow"
+    import { truncIfTooBig } from "../services/utils"
 
     export default {
-        name: 'rowList',
+        name: 'searchModule',
         props: {
             ['albums']:{},
             isLoading: {
@@ -46,16 +50,17 @@
         },
         methods: {
             search() {
-                console.log("[debug] search in rowList called : " + this.query);
-                this.$emit('search', this.query, this.howMany);
-                this.searchQuery = this.query;
-                this.query = "";
-            },
-            updateHowMany() {
-                console.log("[debug] howMany select has been updated");
+                if (this.query.trim() !== "") {
+                    this.$emit('search', this.query, this.howMany);
+                    this.searchQuery = this.query;
+                    this.query = "";
+                }
             },
             addButtonEvent(album) {
                 this.$emit('addButtonEvent', album);
+            },
+            trunc(albumName, limit) {
+                return truncIfTooBig(albumName, limit);
             }
         }
     }
@@ -63,18 +68,18 @@
 </script>
 
 <style scoped>
-    .rowList {
+    .searchModule {
         flex: 1;
-        max-width: 75vw;
         min-width: 33vw;
         padding: .2rem 1rem 1rem;
+        display: flex;
+        flex-direction: column;
 
         background-color: #eaeaea;
         border-radius: 5px;
     }
 
     .albumList {
-        height: 88vh;
         overflow-y: auto;
     }
 
@@ -86,8 +91,12 @@
         margin-bottom: 0px;
     }
 
-    input {
+    .inputs {
         margin-bottom: 1rem;
-        width: 80%;
+        display: flex;
+    }
+
+    input {
+        flex-grow: 1;
     }
 </style>

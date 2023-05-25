@@ -1,95 +1,36 @@
 <template>
   <div class="mainContainer">
-    <rowList v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addButtonEvent" :isLoading="isSearchLoading"/>
-    <cardList v-bind:list="currentList" @removeButtonEvent="removeButtonEvent"/>
-    <listList v-bind:lists="lists" @listSelected="listSelectedHandler" @deleteList="deleteList" @addNewList="addNewList"/>
+    <searchModule v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addAlbum" :isLoading="isSearchLoading"/>
+    <displayModule v-bind:list="currentList" @removeButtonEvent="removeAlbum"/>
+    <librarylModule v-bind:lists="lists" @listSelected="listSelectedHandler" @removeList="removeList" @addNewList="addList"/>
   </div>
 </template>
 
 <script>
-import rowList from "./components/rowList"
-import cardList from "./components/cardList"
-import listList from "./components/listList"
+import searchModule from "./components/searchModule"
+import displayModule from "./components/displayModule"
+import librarylModule from "./components/librarylModule"
 import { getAlbumsFormSearchFromAPI } from "./services/api/lastfmAPI";
 
 export default {
   name: 'App',
   components: {
-    rowList, 
-    cardList,
-    listList
+    searchModule, 
+    displayModule,
+    librarylModule
   },
   data() {
     return {
       searchedAlbumData: [],
       retrievedQuery: " ",
       isSearchLoading: false,
-      lists : [
-        {
-          name: "yo",
-          albums: [
-            {
-              name: "Frailty",
-              artist: "Jane Remover",
-              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
-              duration: "999:99",
-              index: 0
-            },
-            {
-              name: "Starboy",
-              artist: "The Weeknd",
-              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
-              duration: "999:99",
-              index: 1
-            }
-          ]
-        },
-        {
-          name: "yo2",
-          albums: [
-            {
-              name: "4x4=12",
-              artist: "deadmau5",
-              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
-              duration: "999:99",
-              index: 0
-            },
-            {
-              name: "Strobe",
-              artist: "deadmau5",
-              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
-              duration: "999:99",
-              index: 1
-            }
-          ]
-        },
-        {
-          name: "yo3",
-          albums: [
-            {
-              name: "Pause",
-              artist: "Four Tet",
-              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
-              duration: "999:99",
-              index: 0
-            },
-            {
-              name: "Pink",
-              artist: "Four Tet",
-              image: "https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/382/13177875-pack_l.jpg",
-              duration: "999:99",
-              index: 1
-            }
-          ]
-        }
-      ],
+      lists : [],
       currentList : {}
     }
   },
   created: async function() {
-    console.log(this.currentList);
-    this.retrieveAndTreatAlbumData("four tet", 10);
-    this.currentList = this.lists[0];
+    //this.currentList = this.lists[0];
+    // ICI : récupérer la liste des listes dans le local storage
   },
   methods: {
       async retrieveAndTreatAlbumData(albumName, howMany) {
@@ -98,39 +39,39 @@ export default {
         this.isSearchLoading = false;
       },
       listSelectedHandler(list) {
-        // console.log(this.lists.find(list => list.name === listname));
         this.currentList = {};
         this.currentList = list;
       },
-      addButtonEvent(album) {
-        console.log("album to add, that has been transported to App.vue :")
-        console.log(album);
-        // checks if album already in list
-        if (this.currentList.albums.find(albumInList => albumInList === album)) {
-          console.log("Album already in list");
+      addAlbum(album) {
+        if (this.currentList.albums) {
+          if (this.currentList.albums.find(albumInList => albumInList === album)) {
+            alert("Cet album est déjà dans la liste !");
+          }
+          else {
+            this.currentList.albums.push(album);
+          }
         }
         else {
-          this.currentList.albums.push(album);
+          alert("Vous n'avez aucune liste dans laquelle ajouté cet album !");
         }
       },
-      removeButtonEvent(album) {
-        console.log("album to REMOVE, that has been transported to App.vue :")
-        console.log(album);
+      removeAlbum(album) {
         this.currentList.albums = this.currentList.albums.filter(albumInList => albumInList !== album);
       },
-      deleteList(listToDelete) {
-        console.log("list to REMOVE, that has been transported to App.vue :")
-        console.log(listToDelete);
+      addList(newList) {
+        this.lists.push(newList);
+        this.currentList = newList;
+      },
+      removeList(listToDelete) {
         const userConfirmation = window.confirm("Êtes-vous sûr de vouloir supprimer la liste " + listToDelete.name + " ?");
         if (userConfirmation) {
           this.lists = this.lists.filter(listInLists => listInLists !== listToDelete);
-          if (this.currentList == listToDelete) {
+          if (this.currentList == listToDelete && this.lists.length > 0) {
             this.currentList = this.lists[0];
+          } else if (this.lists.length === 0) {
+            this.currentList = {};
           }
         }
-      },
-      addNewList(newList) {
-        this.lists.push(newList);
       }
   }
 }

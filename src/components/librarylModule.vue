@@ -1,22 +1,18 @@
 <template>
-    <div class="listList">
-        <h2>Listes</h2>
-        <!-- <select v-model="howMany" @change="updateHowMany">
-            <option value=5>5</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-        </select>
-        <p v-if="searchQuery">Looking for {{ searchQuery }}...</p>  -->
-        <div class="listList">
+    <div class="librarylModule">
+        <h2>Bibliothèque</h2>
+        <div class="lists">
             <div 
                 v-for="list in lists" 
                 :key="list"
                 class="listContainer">
                 <p @click="listSelected(list)">{{ truncListName(list.name, 20) }}</p>
-                <svg @click="deleteList(list)" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+                <svg @click="removeList(list)" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
             </div>
-            <input v-model="newListName" @keyup.enter="createList" type="text" placeholder="Nouvelle liste">
+        </div>
+        <div class="addListModule">
+            <input v-model="newListName" @keyup.enter="createList" type="text" placeholder="Nouvelle liste...">
+            <button @click="createList">Ajouter</button>
         </div>
     </div>
 </template>
@@ -25,9 +21,9 @@
     import { truncIfTooBig } from "../services/utils"
 
     export default {
-        name: 'listList',
+        name: 'librarylModule',
         props: ['lists'],
-        emits: ['listSelected', 'deleteList', 'addNewList'],
+        emits: ['listSelected', 'removeList', 'addNewList'],
         data() {
             return {
                 newListName: ''
@@ -35,18 +31,17 @@
         },
         methods: {
             listSelected(list) {
-                console.log("[debug] listSelected in listList called : " + list.name);
                 this.$emit('listSelected', list);
             },
-            deleteList(list) {
-                console.log("[debug] list to delete: " + list.name);
-                this.$emit('deleteList', list);
+            removeList(list) {
+                this.$emit('removeList', list);
             },
             createList() {
-                let newList = {name: this.newListName, albums: []};
-                console.log("[debug] list created: " + newList);
-                this.newListName = "";
-                this.$emit('addNewList', newList);
+                if (this.newListName.trim() !== "") {
+                    let newList = {name: this.newListName, albums: []};
+                    this.newListName = "";
+                    this.$emit('addNewList', newList);
+                }
             },
             truncListName(listName, limit) {
                 return truncIfTooBig(listName, limit);
@@ -57,13 +52,19 @@
 </script>
 
 <style scoped>
-    .listList {
+    .librarylModule {
         flex: 1;
         max-width: 33vw;
         padding: .2rem 1rem 1rem;
+        display: flex;
+        flex-direction: column;
 
         background-color: #eaeaea;
         border-radius: 5px;
+    }
+
+    .lists {
+        overflow-y: auto;
     }
 
     .listContainer {
@@ -94,4 +95,14 @@
     .removeButton:hover {
         cursor: pointer;
     }
+
+    .addListModule {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    input {
+        flex-grow: 1;
+    }
+
 </style>

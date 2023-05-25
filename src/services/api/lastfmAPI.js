@@ -14,7 +14,6 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
             let currentAlbumInfo = await getAlbumInfoFromAPI(currentAlbum.artist, currentAlbum.name);
             if (currentAlbumInfo) {
                 if ('tracks' in currentAlbumInfo?.album) {
-                    console.log(currentAlbumInfo.album.tracks.track);
                     if (Array.isArray(currentAlbumInfo.album.tracks.track)) {
                         searchedAlbums[i].nb_tracks = currentAlbumInfo.album.tracks.track.length;
                         searchedAlbums[i].duration = getAlbumDuration(currentAlbumInfo.album.tracks.track);
@@ -40,7 +39,6 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
     }
 }
 const getAlbumInfoFromAPI = async function(artist, albumName) {
-    console.log("[API] Going to get info for " + artist + " - " + albumName);
     const response = await fetch("https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=762524dd4376d64eba94f5ccfcbe1223&artist=" + artist + "&album=" + albumName + "&format=json")
     if (response.status == 200)
     {

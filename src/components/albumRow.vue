@@ -4,8 +4,8 @@
         <div class="albumArt">
             <img v-bind:src="album.image">
             <div class="textTitles">
-                <span class="textAlbum">{{ truncAlbumName(album.name, 50) }}</span>
-                <span class="textArtist">{{ album.artist }}</span>
+                <span class="textAlbum">{{ trunc(album.name, 42) }}</span>
+                <span class="textArtist">{{ trunc(album.artist, 42) }}</span>
             </div>
         </div>
         <div class="albumStats">
@@ -28,10 +28,9 @@
         emits: ['addButtonEvent'],
         methods: {
             addButtonEvent(album) {
-                // console.log(album);
                 this.$emit('addButtonEvent', album);
             },
-            truncAlbumName(albumName, limit) {
+            trunc(albumName, limit) {
                 return truncIfTooBig(albumName, limit);
             }
         }

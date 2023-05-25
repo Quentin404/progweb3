@@ -1,10 +1,10 @@
 <template>
-    <div class="cardList">
-        <h2 v-if="list">{{ list.name }}</h2>
-        <h2 v-if="!list"> Vous n'avez pas de liste !</h2>
+    <div class="displayModule">
+        <h2 v-if="list.name !== undefined">{{ list.name }}</h2>
+        <p v-if="list.name == undefined">Créez une liste dans la bibliothèque à droite puis ajoutez des albums dedans !</p>
         <div v-if="list" class="albumGallery">
             <albumCard 
-                v-for="album in list.albums" 
+                v-for="album in list.albums"
                 :key="album"
                 :album="album"
                 @removeButtonEvent="removeButtonEvent"
@@ -17,7 +17,7 @@
     import albumCard from "./albumCard"
 
     export default {
-        name: 'cardList',
+        name: 'displayModule',
         props: ['list'],
         emits: ['removeButtonEvent'],
         components: {
@@ -33,7 +33,7 @@
 </script>
 
 <style scoped>
-    .cardList {
+    .displayModule {
         flex: 3;
         display: flex;
         flex-direction: column;
