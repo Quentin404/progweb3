@@ -1,5 +1,7 @@
 X list deletion
 X add an input in lists component
 X list creation using the input
-- lists storage in cache
-- clean css
+x clean css
+X lists storage in cache
+- tri sur liste
+- beautiful css

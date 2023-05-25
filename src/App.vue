@@ -10,7 +10,7 @@
 import searchModule from "./components/searchModule"
 import displayModule from "./components/displayModule"
 import librarylModule from "./components/librarylModule"
-import { getAlbumsFormSearchFromAPI } from "./services/api/lastfmAPI";
+import { getAlbumsFormSearchFromAPI } from "./services/lastfm";
 
 export default {
   name: 'App',
@@ -28,9 +28,11 @@ export default {
       currentList : {}
     }
   },
-  created: async function() {
-    //this.currentList = this.lists[0];
-    // ICI : récupérer la liste des listes dans le local storage
+  created: function() {
+    const savedLists = localStorage.getItem('lists');
+    if (savedLists) {
+      this.lists = JSON.parse(savedLists);
+    }
   },
   methods: {
       async retrieveAndTreatAlbumData(albumName, howMany) {
@@ -49,6 +51,7 @@ export default {
           }
           else {
             this.currentList.albums.push(album);
+            this.updateCache();
           }
         }
         else {
@@ -57,21 +60,27 @@ export default {
       },
       removeAlbum(album) {
         this.currentList.albums = this.currentList.albums.filter(albumInList => albumInList !== album);
+        this.updateCache();
       },
       addList(newList) {
         this.lists.push(newList);
         this.currentList = newList;
+        this.updateCache();
       },
       removeList(listToDelete) {
         const userConfirmation = window.confirm("Êtes-vous sûr de vouloir supprimer la liste " + listToDelete.name + " ?");
         if (userConfirmation) {
           this.lists = this.lists.filter(listInLists => listInLists !== listToDelete);
+          this.updateCache();
           if (this.currentList == listToDelete && this.lists.length > 0) {
             this.currentList = this.lists[0];
           } else if (this.lists.length === 0) {
             this.currentList = {};
           }
         }
+      },
+      updateCache() {
+        localStorage.setItem('lists', JSON.stringify(this.lists));
       }
   }
 }
