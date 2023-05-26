@@ -16,10 +16,12 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
                 if ('tracks' in currentAlbumInfo?.album) {
                     if (Array.isArray(currentAlbumInfo.album.tracks.track)) {
                         searchedAlbums[i].nb_tracks = currentAlbumInfo.album.tracks.track.length;
-                        searchedAlbums[i].duration = getAlbumDuration(currentAlbumInfo.album.tracks.track);
+                        searchedAlbums[i].durationInSeconds = getAlbumDuration(currentAlbumInfo.album.tracks.track);
+                        searchedAlbums[i].duration = convertToBeautifulTime(getAlbumDuration(currentAlbumInfo.album.tracks.track));
                     }
                     else {
                         searchedAlbums[i].nb_tracks = 1;
+                        searchedAlbums[i].durationInSeconds = currentAlbumInfo.album.tracks.track.duration;
                         searchedAlbums[i].duration = convertToBeautifulTime(currentAlbumInfo.album.tracks.track.duration);
                     }
                 }

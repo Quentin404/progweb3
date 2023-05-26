@@ -46,12 +46,14 @@ export default {
       },
       addAlbum(album) {
         if (this.currentList.albums) {
-          if (this.currentList.albums.find(albumInList => albumInList === album)) {
+          if (this.currentList.albums.find(a => a.durationInSeconds === album.durationInSeconds && a.name === album.name && a.artist === album.artist)) {
             alert("Cet album est déjà dans la liste !");
           }
           else {
+            album.addedAt = Date.now();
             this.currentList.albums.push(album);
             this.updateCache();
+            console.log(this.currentList);
           }
         }
         else {
