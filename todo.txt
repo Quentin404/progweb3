@@ -5,3 +5,4 @@ x clean css
 X lists storage in cache
 - tri sur liste
 - beautiful css
+- responsive (pour mobile)

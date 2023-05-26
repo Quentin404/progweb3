@@ -37,7 +37,6 @@
         flex: 3;
         display: flex;
         flex-direction: column;
-        max-width: 75vw;
         min-width: 33vw;
         padding: .2rem 1rem 1rem;
 

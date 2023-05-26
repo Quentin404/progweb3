@@ -97,4 +97,15 @@ export default {
     height: 98vh;
   }
 
+  @media screen and (max-width: 1000px) {
+    .mainContainer {
+      flex-direction: column;
+      max-height: 100vh;
+    }
+
+    displayModule {
+      max-height: 80wh;
+    }
+  }
+
 </style>

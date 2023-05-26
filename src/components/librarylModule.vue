@@ -54,7 +54,6 @@
 <style scoped>
     .librarylModule {
         flex: 1;
-        max-width: 33vw;
         padding: .2rem 1rem 1rem;
         display: flex;
         flex-direction: column;
