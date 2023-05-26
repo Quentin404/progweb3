@@ -57,10 +57,10 @@
                         list.albums.sort((a, b) => b.name.localeCompare(a.name));
                         break;
                     case 'longest':
-                        list.albums.sort((a, b) => a.durationInSeconds - b.durationInSeconds);
+                        list.albums.sort((a, b) => b.durationInSeconds - a.durationInSeconds);
                         break;
                     case 'shortest':
-                        list.albums.sort((a, b) => b.durationInSeconds - a.durationInSeconds);
+                        list.albums.sort((a, b) => a.durationInSeconds - b.durationInSeconds);
                         break;
                 }
             }
