@@ -53,7 +53,6 @@ export default {
             album.addedAt = Date.now();
             this.currentList.albums.push(album);
             this.updateCache();
-            console.log(this.currentList);
           }
         }
         else {
@@ -89,8 +88,13 @@ export default {
 </script>
 
 <style>
+  html {
+    background-color: #232533;
+  }
+
   body   {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFF;
   }
   .mainContainer {
     display: flex;

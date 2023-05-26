@@ -43,7 +43,7 @@
         flex-direction: row;
         align-items: center;
 
-        background-color: #cacaca;
+        background-color: #41456F;
         border-radius: 5px;
     }
     

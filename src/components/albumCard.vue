@@ -38,7 +38,7 @@
 
         max-width: 150px;
 
-        background-color: #cacaca;
+        background-color: #41456F;
         border-radius: 5px;
     }
 

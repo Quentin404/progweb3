@@ -58,7 +58,7 @@
         display: flex;
         flex-direction: column;
 
-        background-color: #eaeaea;
+        background-color: #2F3251;
         border-radius: 5px;
     }
 
@@ -74,7 +74,7 @@
 
     p {
         border-radius: 5px;
-        background-color: #cacaca;
+        background-color: #41456F;
         padding: 5px 10px;
         flex-grow: 2;
         margin: 5px 0px;
@@ -88,7 +88,6 @@
         margin-left: 10px;
         padding: 4px 5px;
         border-radius: 5px;
-        /* background-color: #cacaca; */
     }
 
     .removeButton:hover {

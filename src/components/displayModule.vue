@@ -77,7 +77,7 @@
         min-width: 33vw;
         padding: .2rem 1rem 1rem;
 
-        background-color: #eaeaea;
+        background-color: #2F3251;
         border-radius: 5px;
     }
 

@@ -75,7 +75,7 @@
         display: flex;
         flex-direction: column;
 
-        background-color: #eaeaea;
+        background-color: #2F3251;
         border-radius: 5px;
     }
 
