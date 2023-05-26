@@ -1,8 +1,8 @@
 <template>
   <div class="mainContainer">
-    <searchModule v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addAlbum" :isLoading="isSearchLoading"/>
-    <displayModule v-bind:list="currentList" @removeButtonEvent="removeAlbum"/>
-    <librarylModule v-bind:lists="lists" @listSelected="listSelectedHandler" @removeList="removeList" @addNewList="addList"/>
+    <searchModule v-bind:albums="searchedAlbumData" @search="retrieveAndTreatAlbumData" @addButtonEvent="addAlbum" :isLoading="isSearchLoading" class="searchModule" />
+    <displayModule v-bind:list="currentList" @removeButtonEvent="removeAlbum" class="displayModule"/>
+    <librarylModule v-bind:lists="lists" @listSelected="listSelectedHandler" @removeList="removeList" @addNewList="addList" class="librarylModule"/>
   </div>
 </template>
 
@@ -103,8 +103,16 @@ export default {
       max-height: 100vh;
     }
 
-    displayModule {
-      max-height: 80wh;
+    .searchModule {
+      max-height: 38vh;
+    }
+
+    .displayModule {
+      max-height: 30vh;
+    }
+
+    .librarylModule {
+      max-height: 23vh;
     }
   }
 

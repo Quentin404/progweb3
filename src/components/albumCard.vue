@@ -72,4 +72,27 @@
     .removeButton:hover {
         cursor: pointer;
     }
+
+    @media screen and (max-width: 1000px) {
+
+    .albumCard {
+        max-width: 100px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .textArtist {
+        font-size: 10px;
+    }
+
+    .textAlbum{
+        font-size: 12px;
+        max-height: 50px;
+        overflow-x: hidden;
+    }
+
+  }
 </style>
