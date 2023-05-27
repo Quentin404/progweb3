@@ -2,10 +2,12 @@
     <div class="albumCard">
         <img v-bind:src="album.image">
         <div class="textTitles">
-            <span class="textAlbum">{{ trunc(album.name, 42) }}</span>
-            <span class="textArtist">{{ trunc(album.artist, 42) }}</span>
+            <a :href="album.url" target="_blank">
+                <span class="textAlbum" :title="album.name">{{ trunc(album.name, 42) }}</span>
+            </a>
+            <span class="textArtist" :title="album.artist">{{ trunc(album.artist, 42) }}</span>
             <span class="textInfos">{{ album.duration }}</span>
-            <svg @click="removeButtonEvent(album)" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+            <svg @click="removeButtonEvent(album)" class="removeButton" style="fill: white;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
         </div>
     </div>
 </template>
@@ -46,6 +48,11 @@
         width: 150px;
         height: 150px;
         border-radius: 5px;
+    }
+
+    a {
+        color: #FFF;
+        text-decoration: none;
     }
 
     .textTitles {

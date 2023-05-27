@@ -3,8 +3,8 @@
         <div class="title">
             <h2 v-if="list.name !== undefined">{{ list.name }}</h2>
             <select v-if="list.name !== undefined" @change="sortAlbums($event.target.value, list)">
-                <option value="mostRecent">Les plus récemment ajouté(s)</option>
                 <option value="mostOld">Les plus anciennement ajouté(s)</option>
+                <option value="mostRecent">Les plus récemment ajouté(s)</option>
                 <option value="alphabetical">Tri alphabétique</option>
                 <option value="reverseAlphabetical">Tri alphabétique inverse</option>
                 <option value="longest">Les plus longs</option>

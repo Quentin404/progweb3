@@ -26,10 +26,12 @@ const getAlbumsFormSearchFromAPI = async function(albumName, howMany) {
                     }
                 }
                 else {
+                    searchedAlbums[i].durationInSeconds = 0;
                     searchedAlbums[i].duration = "n/a"
                     searchedAlbums[i].nb_tracks = 1
                 }
                 searchedAlbums[i].playcount = currentAlbumInfo.album.playcount;
+                searchedAlbums[i].url = currentAlbumInfo.album.url;
             }
         }
 

@@ -6,8 +6,8 @@
                 v-for="list in lists" 
                 :key="list"
                 class="listContainer">
-                <p @click="listSelected(list)">{{ truncListName(list.name, 20) }}</p>
-                <svg @click="removeList(list)" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+                <p @click="listSelected(list)" :title="list.name">{{ truncListName(list.name, 20) }}</p>
+                <svg @click="removeList(list)" style="fill: white;" class="removeButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
             </div>
         </div>
         <div class="addListModule">

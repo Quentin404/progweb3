@@ -4,15 +4,17 @@
         <div class="albumArt">
             <img v-bind:src="album.image">
             <div class="textTitles">
-                <span class="textAlbum">{{ trunc(album.name, 42) }}</span>
-                <span class="textArtist">{{ trunc(album.artist, 42) }}</span>
+                <a :href="album.url" target="_blank">
+                    <span class="textAlbum" :title="album.name">{{ trunc(album.name, 42) }}</span>
+                </a>
+                <span class="textArtist" :title="album.artist" >{{ trunc(album.artist, 42) }}</span>
             </div>
         </div>
         <div class="albumStats">
             <span class="textInfos">{{ album.nb_tracks }}</span> 
             <span class="textInfos">{{ album.playcount }}</span>
             <span class="textInfos">{{ album.duration }}</span>
-            <svg @click="addButtonEvent(album)" class="addIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+            <svg @click="addButtonEvent(album)" class="addIcon" style="fill: white;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
         </div>
     </div>
 </template>
@@ -61,6 +63,11 @@
         width: auto;
         margin-right: 1rem;
         border-radius: 5px;
+    }
+
+    a {
+        color: #FFF;
+        text-decoration: none;
     }
 
     .textTitles {

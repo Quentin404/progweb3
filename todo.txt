@@ -3,6 +3,15 @@ X add an input in lists component
 X list creation using the input
 x clean css
 X lists storage in cache
-- tri sur liste
-- beautiful css
-- responsive (pour mobile)
+X tri sur liste
+
+X responsive (pour mobile)
+/ beautiful css
+
+
+# Dernières mises à jour (trucs que j'ai fait après minuit)
+X mettre "plus anciennement" au début dans les filtres
+x mettre les "+" et "-" en blanc
+X mettre la durationInSecond à 0 pour les albums à durée non renseignée pour qu'ils puissent être triés convenablement quand même
+X remplir la balise title pour les éléments pouvant être tronqués
+X mettre le lien des albums sur le nom des albums dans search et display

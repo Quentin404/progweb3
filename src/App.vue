@@ -56,7 +56,7 @@ export default {
           }
         }
         else {
-          alert("Vous n'avez aucune liste dans laquelle ajouté cet album !");
+          alert("Vous n'avez aucune liste dans laquelle ajouter cet album !");
         }
       },
       removeAlbum(album) {
